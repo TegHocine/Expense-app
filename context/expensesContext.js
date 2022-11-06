@@ -19,12 +19,18 @@ const ExpensesProvider = ({ children }) => {
     )
 
   const addExpense = (expense) => {
-    const id = `e${expense.length + 2}`
+    const id = `e${expenses.length + 2}`
     setExpenses((currentExpenses) => [{ id, ...expense }, ...currentExpenses])
+    return
+  }
+  const updateExpense = (id, data) => {
+    const filteredExpense = expenses.filter((expense) => expense.id !== id)
+    setExpenses([...filteredExpense, { id, ...data }])
   }
 
   return (
-    <ExpensesContext.Provider value={{ expenses, deleteExpense, addExpense }}>
+    <ExpensesContext.Provider
+      value={{ expenses, deleteExpense, addExpense, updateExpense }}>
       {children}
     </ExpensesContext.Provider>
   )

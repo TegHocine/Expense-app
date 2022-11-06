@@ -16,6 +16,7 @@ const AllExpense = () => {
       <ExpensesOutput
         expenses={sortedByDate}
         expensePeriod={'Total'}
+        fallBackText='No expenses found!!'
       />
     </View>
   )

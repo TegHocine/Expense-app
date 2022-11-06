@@ -54,6 +54,13 @@ const styles = StyleSheet.create({
     minWidth: 70,
     textAlign: 'center'
   },
-  pressed: { opacity: 0.7 }
+  pressed: { opacity: 0.7 },
+  fallBackText: {
+    fontSize: 14,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: GlobalStyles.colors.primary600,
+    marginVertical: 10
+  }
 })
 export default styles

@@ -4,12 +4,16 @@ import Btn from '../../components/UI/Btn'
 import { GlobalStyles } from '../../constants/style'
 import styles from './ManageExpenses.style'
 import { ExpensesContext } from '../../context/expensesContext'
+import Form from '../../components/form/Form'
 
 const ManageExpense = ({ route, navigation }) => {
   const expenseId = route.params?.expenseId
   const isEditing = !!expenseId
 
-  const { deleteExpense, addExpense } = useContext(ExpensesContext)
+  const { expenses, deleteExpense, addExpense, updateExpense } =
+    useContext(ExpensesContext)
+
+  const selectedExpense = expenses.find((expense) => expenseId === expense.id)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -20,40 +24,31 @@ const ManageExpense = ({ route, navigation }) => {
   const handleCancel = () => {
     navigation.goBack()
   }
-  const handleConfirm = () => {
-    const expense = {
-      description: 'something to add ',
-      amount: 89.29,
-      date: new Date('2022-11-02')
-    }
-    addExpense(expense)
-    navigation.goBack()
-  }
 
   const handleDelete = () => {
     deleteExpense(expenseId)
     navigation.goBack()
   }
-  const handleUpdate = () => {
+
+  const handleAdd = (expenseData) => {
+    addExpense(expenseData)
+    navigation.goBack()
+  }
+
+  const handleUpdate = (expenseData) => {
+    updateExpense(expenseId, expenseData)
     navigation.goBack()
   }
 
   return (
-    <View>
-      <View style={styles.btnWrapper}>
-        <Btn
-          name={'cancel'}
-          color={GlobalStyles.colors.primary500}
-          onPress={handleCancel}
-        />
+    <View style={styles.manageWrapper}>
+      <Form
+        onCancel={handleCancel}
+        submitLabel={isEditing ? 'Update' : 'Confirm'}
+        onSubmit={isEditing ? handleUpdate : handleAdd}
+        defaultValue={selectedExpense}
+      />
 
-        <Btn
-          name={isEditing ? 'Update' : 'Confirm'}
-          bgColor={GlobalStyles.colors.accent2}
-          color={GlobalStyles.colors.primary500}
-          onPress={isEditing ? handleUpdate : handleConfirm}
-        />
-      </View>
       {isEditing ? (
         <View style={styles.deleteWrapper}>
           <Btn

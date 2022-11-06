@@ -24,6 +24,7 @@ const RecentExpense = () => {
       <ExpensesOutput
         expenses={recentExpenses}
         expensePeriod={'Last 7 Days'}
+        fallBackText='No expenses found for the last 7 days!!'
       />
     </View>
   )
