@@ -87,7 +87,7 @@ const Form = ({ onCancel, submitLabel, onSubmit, defaultValues }) => {
             label='Date'
             inputTextOptions={{
               placeholder: 'YYYY-MM-DD',
-              maxLength: 10,
+              maxLength: 11,
               onChangeText: handleInputs.bind(this, 'date'),
               value: inputs.date.value
             }}

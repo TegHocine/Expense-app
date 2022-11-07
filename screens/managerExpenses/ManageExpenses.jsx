@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React, { useContext, useLayoutEffect } from 'react'
 import Btn from '../../components/UI/Btn'
 import { GlobalStyles } from '../../constants/style'
 import styles from './ManageExpenses.style'
 import { ExpensesContext } from '../../context/expensesContext'
 import Form from '../../components/form/Form'
+import { addExpenseFb } from '../../utils/http'
 
 const ManageExpense = ({ route, navigation }) => {
   const expenseId = route.params?.expenseId
@@ -31,6 +32,7 @@ const ManageExpense = ({ route, navigation }) => {
   }
 
   const handleAdd = (expenseData) => {
+    addExpenseFb(expenseData)
     addExpense(expenseData)
     navigation.goBack()
   }
@@ -46,7 +48,7 @@ const ManageExpense = ({ route, navigation }) => {
         onCancel={handleCancel}
         submitLabel={isEditing ? 'Update' : 'Confirm'}
         onSubmit={isEditing ? handleUpdate : handleAdd}
-        defaultValue={selectedExpense}
+        defaultValues={selectedExpense}
       />
 
       {isEditing ? (
